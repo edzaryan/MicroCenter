@@ -59,17 +59,6 @@ const Footer = () => {
                 </div>
               </div>
               <div className="grid md:grid-cols-[auto_auto] sm:grid-rows-[auto_auto] gap-7 justify-between">
-                <div className="grid items-center grid-flow-col md:grid-flow-row lg:grid-flow-col gap-4">
-                  <div className="hidden xl:block">
-                    Trade on the go with the <span className="underline font-semibold">MicroCenter.com app</span>
-                  </div>
-                  <Link className="footer-app-link" to="/">
-                    <img className="h-10" src="https://s.alicdn.com/@img/imgextra/i4/O1CN01i9Aj641atkjJJ9I6y_!!6000000003388-2-tps-396-132.png" alt="Download from App Store" />
-                  </Link>
-                  <Link className="footer-app-link" to="/">
-                    <img className="h-10" src="https://s.alicdn.com/@img/imgextra/i4/O1CN018KnDNq1JleFgkjLRq_!!6000000001069-2-tps-447-132.png" alt="Download from Google Play" />
-                  </Link>
-                </div>
                 <div className="grid grid-flow-col items-center gap-5">
                   <Link to="">
                     <FaXTwitter size={24} />
@@ -88,6 +77,17 @@ const Footer = () => {
                   </Link>
                   <Link to="">
                     <FaLinkedinIn size={24} />
+                  </Link>
+                </div>
+                <div className="grid items-center grid-flow-col md:grid-flow-row lg:grid-flow-col gap-4">
+                  <div className="hidden xl:block">
+                    Trade on the go with the <a href="" className="underline font-semibold">MicroCenter.com app</a>
+                  </div>
+                  <Link className="footer-app-link" to="/">
+                    <img className="h-10" src="https://s.alicdn.com/@img/imgextra/i4/O1CN01i9Aj641atkjJJ9I6y_!!6000000003388-2-tps-396-132.png" alt="Download from App Store" />
+                  </Link>
+                  <Link className="footer-app-link" to="/">
+                    <img className="h-10" src="https://s.alicdn.com/@img/imgextra/i4/O1CN018KnDNq1JleFgkjLRq_!!6000000001069-2-tps-447-132.png" alt="Download from Google Play" />
                   </Link>
                 </div>
               </div>

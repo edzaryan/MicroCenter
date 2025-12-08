@@ -1,16 +1,16 @@
 import {
-    useContext,
-    useEffect,
-    useRef,
-    useState,
     fetchCategoryWiseProduct,
     displayINRCurrency,
-    FaAngleLeft,
     FaAngleRight,
-    Link,
+    FaAngleLeft,
+    useContext,
+    useEffect,
     addToCart,
+    useState,
     Context,
-    Button
+    useRef,
+    Button,
+    Link,
 } from "../utils/imports";
 
 
@@ -42,14 +42,14 @@ const VerticalCardProduct = ({ category, heading }) => {
             <h2 className="text-2xl font-semibold py-4">{heading}</h2>
             <div className="flex items-center gap-4 md:gap-6 overflow-x-scroll scrollbar-none transition-all" ref={scrollElement}>
                 <button
-                    className="bg-white shadow-md rounded-full p-1 absolute left-0 text-lg hidden md:block"
+                    className="bg-white shadow-sm rounded-full p-2 absolute -left-2 text-lg hidden md:block hover:bg-gray-50 transition duration-200"
                     onClick={() => scrollElement.current.scrollLeft -= 300}>
-                    <FaAngleLeft />
+                    <FaAngleLeft size={26} />
                 </button>
                 <button
-                    className="bg-white shadow-md rounded-full p-1 absolute right-0 text-lg hidden md:block"
+                    className="bg-white shadow-sm rounded-full p-2 absolute -right-2 text-lg hidden md:block hover:bg-gray-50 transition duration-200"
                     onClick={() => scrollElement.current.scrollLeft += 300}>
-                    <FaAngleRight />
+                    <FaAngleRight size={26} />
                 </button>
                 {
                     loading ? (
@@ -97,8 +97,8 @@ const VerticalCardProduct = ({ category, heading }) => {
                 }
             </div>
         </div>
-    );
-};
+    )
+}
 
 
 export default VerticalCardProduct;

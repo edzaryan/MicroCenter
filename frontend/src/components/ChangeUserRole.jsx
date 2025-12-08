@@ -35,7 +35,9 @@ export const ChangeUserRole = ({ userId, name, email, role, onClose, callFunc })
     };
 
     return (
-        <div onClick={onClose} className="fixed inset-2 w-full h-full z-10 grid justify-center items-center bg-slate-200 bg-opacity-50">
+        <div 
+            onClick={onClose} 
+            className="fixed inset-2 w-full h-full z-10 grid justify-center items-center bg-slate-200 bg-opacity-50">
             <div
                 onClick={e => e.stopPropagation()}
                 className="w-[500px] bg-white shadow-md p-6 max-w-sm">

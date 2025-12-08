@@ -32,9 +32,6 @@ import {
     FaEye,
 } from 'react-icons/fa';
 
-
-import styled, { css } from 'styled-components';
-
 import { FaRegCircleUser, FaXTwitter } from 'react-icons/fa6';
 import { IoMdClose, IoMdEyeOff } from "react-icons/io";
 import { MdModeEditOutline } from "react-icons/md";
@@ -185,7 +182,6 @@ export {
     NavLink,
     Context,
     CgClose,
-    styled,
     Header,
     Footer,
     image1,
@@ -204,7 +200,6 @@ export {
     Link,
     role,
     Logo,
-    css,
     App,
     lock
 }

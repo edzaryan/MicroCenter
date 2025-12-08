@@ -1,9 +1,4 @@
-import {
-   CategoryList,
-   BannerProduct,
-   ProductSliderSmall,
-   VerticalProductCard
-} from "../utils/imports";
+import { CategoryList, BannerProduct, ProductSliderSmall, VerticalProductCard } from "../utils/imports";
 
 
 const HomePage = () => {
