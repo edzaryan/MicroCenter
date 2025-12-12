@@ -1,8 +1,5 @@
-import {
-    SummaryApi,
-    toast
-} from "../imports";
-
+import SummaryApi from "../../common";
+import { toast } from "react-toastify";
 
 const addToCart = async (e, id) => {
     e?.stopPropagation();
@@ -31,6 +28,5 @@ const addToCart = async (e, id) => {
 
     return responseData;
 }
-
 
 export default addToCart;

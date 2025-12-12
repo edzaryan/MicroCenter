@@ -1,6 +1,5 @@
 import classNames from "classnames";
 
-
 const SliderButton = ({ children, onClick, position }) => (
     <button
         onClick={onClick}
@@ -15,6 +14,5 @@ const SliderButton = ({ children, onClick, position }) => (
       {children}
     </button>
 );
-
 
 export default SliderButton;

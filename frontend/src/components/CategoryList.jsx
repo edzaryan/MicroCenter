@@ -1,10 +1,6 @@
-import {
-    Link,
-    useEffect,
-    useState,
-    SummaryApi
-} from "../utils/imports";
-
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import SummaryApi from "../common";
 
 const CategoryList = () => {
     const [categoryProduct, setCategoryProduct] = useState([]);
@@ -40,7 +36,7 @@ const CategoryList = () => {
                                 key={product?.category}
                             >
                                 <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden p-4 bg-slate-200 flex items-center justify-center">
-                                    <img src={product?.productImage[0]} alt={product?.category} className="h-full object-scale-down mix-blend-multiply hover:scale-125 transition-all"/>
+                                    <img src={product?.productImage[0]} alt={product?.category} className="h-full object-scale-down mix-blend-multiply hover:scale-110 transition-all"/>
                                 </div>
                                 <p className="text-center text-sm md:text-base capitalize">{product?.category}</p>
                             </Link>
@@ -51,6 +47,5 @@ const CategoryList = () => {
         </div>
     );
 };
-
 
 export default CategoryList;

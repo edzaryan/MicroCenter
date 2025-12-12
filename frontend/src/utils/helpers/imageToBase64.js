@@ -1,5 +1,4 @@
 
-
 const imageToBase64 = file => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -8,6 +7,5 @@ const imageToBase64 = file => {
         reader.onerror = (error) => reject(error);
     });
 }
-
 
 export default imageToBase64;

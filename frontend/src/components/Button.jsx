@@ -1,3 +1,4 @@
+
 const Button = ({
     onClick,
     children,
@@ -33,7 +34,6 @@ const Button = ({
         rounded: "rounded-full",
     }[shape];
 
-    // ---- VARIANTS ----
     const variantClasses = outline
         ? {
               primary: "border border-blue-600 text-blue-600 bg-transparent",

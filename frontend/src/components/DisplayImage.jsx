@@ -1,5 +1,4 @@
-import { CgClose } from "../utils/imports";
-
+import { CgClose } from "react-icons/cg";
 
 const DisplayImage = ({ imgUrl, onClose }) => (
     <div className="fixed bottom-0 top-0 right-0 left-0 flex justify-center items-center">

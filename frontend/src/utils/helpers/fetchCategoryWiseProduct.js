@@ -1,5 +1,4 @@
-import { SummaryApi } from "../imports";
-
+import SummaryApi from "../../common";
 
 const fetchCategoryWiseProduct = async category => {
     const response = await fetch(SummaryApi.categoryWiseProduct.url, {
@@ -16,7 +15,6 @@ const fetchCategoryWiseProduct = async category => {
 
     return dataResponse;
 }
-
 
 export default fetchCategoryWiseProduct;
 

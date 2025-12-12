@@ -1,14 +1,10 @@
-import {
-    MdModeEditOutline,
-    useState,
-    AdminEditProduct,
-    displayINRCurrency
-} from "../utils/imports";
-
+import { useState } from "react";
+import displayINRCurrency from "../utils/helpers/displayCurrency";
+import { MdModeEditOutline } from "react-icons/md";
+import AdminEditProduct from "./AdminEditProduct";
 
 const AdminProductCard = ({data, fetchData}) => {
     const [editProduct, setEditProduct] = useState(false);
-
 
     return (
         <div className="bg-white p-4 rounded shadow-md relative group w-48 overflow-hidden">
@@ -34,6 +30,5 @@ const AdminProductCard = ({data, fetchData}) => {
         </div>
     );
 };
-
 
 export default AdminProductCard;

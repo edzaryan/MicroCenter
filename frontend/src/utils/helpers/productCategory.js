@@ -1,5 +1,4 @@
 
-
 const productCategory = [
     { id: 1, label: "Airpode", value: "airpode" },
     { id: 2, label: "Camera", value: "camera" },
@@ -14,6 +13,5 @@ const productCategory = [
     { id: 11, label: "Television", value: "television" },
     { id: 12, label: "Watch", value: "watch" },
 ];
-
 
 export default productCategory;

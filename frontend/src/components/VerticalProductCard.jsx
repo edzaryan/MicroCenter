@@ -1,18 +1,11 @@
-import {
-    fetchCategoryWiseProduct,
-    displayINRCurrency,
-    FaAngleRight,
-    FaAngleLeft,
-    useContext,
-    useEffect,
-    addToCart,
-    useState,
-    Context,
-    useRef,
-    Button,
-    Link,
-} from "../utils/imports";
-
+import { useContext, useEffect, useRef, useState } from "react";
+import Context from "../context";
+import addToCart from "../utils/helpers/addToCart";
+import fetchCategoryWiseProduct from "../utils/helpers/fetchCategoryWiseProduct";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import displayINRCurrency from "../utils/helpers/displayCurrency";
+import Button from "./Button";
 
 const VerticalCardProduct = ({ category, heading }) => {
     const [data, setData] = useState([]);
@@ -69,12 +62,12 @@ const VerticalCardProduct = ({ category, heading }) => {
                         ))
                     ) : (
                         data.map(product => (
-                            <Link to={"product/" + product?._id} key={product?._id} className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow">
+                            <Link to={`product/${product?._id}`} key={product?._id} className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow">
                                 <div className="bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center">
                                     <img
                                         src={product.productImage[0]}
                                         alt={product?.productName || `Product image ${product?._id}`}
-                                        className="object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply"
+                                        className="object-scale-down h-full hover:scale-105 transition-all mix-blend-multiply"
                                     />
                                 </div>
                                 <div className="p-4 grid gap-3">
@@ -85,11 +78,14 @@ const VerticalCardProduct = ({ category, heading }) => {
                                         <p className="text-slate-500 line-through">{displayINRCurrency(product?.price)}</p>
                                     </div>
                                     <Button
+                                        danger
                                         shape="rounded"
                                         variant="danger"
                                         size="sm"
                                         onClick={e => handleAddToCart(e, product?._id)}
-                                        danger>Add To Cart</Button>
+                                    >
+                                        Add To Cart
+                                    </Button>
                                 </div>
                             </Link>
                         ))
@@ -99,6 +95,5 @@ const VerticalCardProduct = ({ category, heading }) => {
         </div>
     )
 }
-
 
 export default VerticalCardProduct;

@@ -1,11 +1,9 @@
-import {
-    useState,
-    IoMdClose,
-    SummaryApi,
-    toast,
-    role as allRoles, Button
-} from "../utils/imports";
-
+import { useState } from "react";
+import SummaryApi from "../common";
+import { toast } from "react-toastify";
+import { IoMdClose } from "react-icons/io";
+import Button from "./Button";
+import allRoles from "../common/role";
 
 export const ChangeUserRole = ({ userId, name, email, role, onClose, callFunc }) => {
     const [userRole, setUserRole] = useState(role);
@@ -49,7 +47,11 @@ export const ChangeUserRole = ({ userId, name, email, role, onClose, callFunc })
                 <div className="pb-2">Email: {email}</div>
                 <div className="flex items-center justify-between pb-5">
                     <div>Role</div>
-                    <select className="border px-3 py-1" value={userRole} onChange={(e) => setUserRole(e.target.value)}>
+                    <select
+                        className="border px-3 py-1"
+                        value={userRole}
+                        onChange={(e) => setUserRole(e.target.value)}
+                    >
                         {Object.values(allRoles).map(el => <option key={el} value={el}>{el}</option>)}
                     </select>
                 </div>

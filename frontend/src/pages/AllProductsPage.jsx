@@ -1,12 +1,8 @@
-import {
-    useEffect,
-    useState,
-    AdminUploadProduct,
-    SummaryApi,
-    AdminProductCard,
-    Button
-} from "../utils/imports";
-
+import { useEffect, useState } from "react";
+import SummaryApi from "../common";
+import Button from "../components/Button";
+import AdminProductCard from "../components/AdminProductCard";
+import AdminUploadProduct from "../components/AdminUploadProduct";
 
 const AllProductsPage = () => {
     const [openUploadProduct, setOpenUploadProduct] = useState(false);
@@ -68,6 +64,5 @@ const AllProductsPage = () => {
         </div>
     );
 };
-
 
 export default AllProductsPage;

@@ -1,22 +1,16 @@
-import {
-    FaRegCircleUser,
-    FaShoppingCart,
-    useLocation,
-    useNavigate,
-    UserContext,
-    SearchInput,
-    useContext,
-    SummaryApi,
-    useState,
-    Context,
-    NavLink,
-    Button,
-    toast,
-    Link,
-    role,
-    Logo,
-} from "../utils/imports";
-
+import { useContext, useState } from "react";
+import UserContext from "../context/userContext";
+import Context from "../context";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import SummaryApi from "../common";
+import { toast } from "react-toastify";
+import Logo from "../components/Logo";
+import SearchInput from "../components/SearchInput";
+import { FaRegCircleUser } from "react-icons/fa6";
+import role from "../common/role";
+import { FaShoppingCart } from "react-icons/fa";
+import Button from "../components/Button";
+import NavLink from "../components/NavLink";
 
 const Header = () => {
     const { user, setUser } = useContext(UserContext);
@@ -46,17 +40,16 @@ const Header = () => {
     }
 
     const handleSearch = (e) => {
-        const { value } = e.target;
-        setSearch(value);
+        setSearch(e.target.value);
+    }
 
-        value
-            ? navigate(`/search?v=${value}`)
-            : navigate("/search");
+    const handleSearchButton = () => {
+        navigate(`/search?v=${search}`)
     }
 
     return (
         <div className="fixed top-0 left-0 right-0 border-b border-1 z-50 shadow-sm bg-white">
-            <div className="mx-auto h-16 container grid md:grid-cols-[1fr_500px_1fr] grid-cols-[auto_1fr_auto] md:gap-0 gap-10">
+            <div className="mx-auto h-16 container grid md:grid-cols-[1fr_550px_1fr] grid-cols-[auto_1fr_auto] md:gap-0 gap-10">
                 <div className="flex items-center justify-start">
                     <Link className="grid align-middle" to="/">
                         <Logo w={77} />
@@ -64,7 +57,12 @@ const Header = () => {
                 </div>
 
                 <div className="flex items-center">
-                    <SearchInput onChange={handleSearch} value={search} text="Search for anything" />
+                    <SearchInput 
+                        onChange={handleSearch} 
+                        value={search} 
+                        text="Search for product"
+                        onClick={handleSearchButton}
+                    />
                 </div>
 
                 <div className="flex items-center justify-end">
@@ -111,8 +109,7 @@ const Header = () => {
             </div>
         </div>
     );
-};
-
+}
 
 export default Header;
 

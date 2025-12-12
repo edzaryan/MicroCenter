@@ -1,15 +1,13 @@
-import {
-    useState,
-    loginIcons,
-    FaEye,
-    IoMdEyeOff,
-    Link,
-    useNavigate,
-    SummaryApi,
-    imageToBase64,
-    toast,
-    CiCamera, Button
-} from "../utils/imports";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import SummaryApi from "../common";
+import { toast } from "react-toastify";
+import Button from "../components/Button";
+import imageToBase64 from "../utils/helpers/imageToBase64";
+import loginIcons from "../assets/icons/signin.gif";
+import { CiCamera } from "react-icons/ci";
+import { FaEye } from "react-icons/fa";
+import { IoMdEyeOff } from "react-icons/io";
 
 
 export const SignUpPage = () => {

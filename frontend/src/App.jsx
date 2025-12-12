@@ -1,6 +1,13 @@
-import { useEffect, useState, Outlet, Header, Footer, ToastContainer, SummaryApi, Context, UserContext } from "./utils/imports";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import { useEffect, useState } from "react";
+import SummaryApi from "./common";
+import { ToastContainer } from "react-toastify";
+import { Outlet } from "react-router-dom";
+import Footer from "./layout/Footer";
+import Header from "./layout/Header";
+import UserContext from "./context/userContext";
+import Context from "./context";
 
 
 const App = () => {
@@ -58,6 +65,6 @@ const App = () => {
             </UserContext.Provider>
         </>
     );
-};
+}
 
 export default App;

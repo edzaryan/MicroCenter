@@ -1,16 +1,12 @@
-import {
-    useContext,
-    useState,
-    loginIcons,
-    FaEye,
-    IoMdEyeOff,
-    Link,
-    useNavigate,
-    SummaryApi,
-    toast,
-    Context, Button
-} from "../utils/imports";
-
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Context from "../context";
+import SummaryApi from "../common";
+import { toast } from "react-toastify";
+import loginIcons from "../assets/icons/signin.gif";
+import { FaEye } from "react-icons/fa";
+import { IoMdEyeOff } from "react-icons/io";
+import Button from "../components/Button";
 
 const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false);

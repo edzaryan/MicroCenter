@@ -1,5 +1,7 @@
-import { CategoryList, BannerProduct, ProductSliderSmall, VerticalProductCard } from "../utils/imports";
-
+import CategoryList from "../components/CategoryList";
+import BannerProduct from "../components/BannerProduct";
+import HorizontalProductCard from "../components/HorizontalCardProduct";
+import VerticalProductCard from "../components/VerticalProductCard";
 
 const HomePage = () => {
     return (
@@ -7,8 +9,8 @@ const HomePage = () => {
             <CategoryList />
             <BannerProduct />
 
-            <ProductSliderSmall category="airpode" heading="Top's Airpodes" />
-            <ProductSliderSmall category="earphone" heading="Top's Earphones" />
+            <HorizontalProductCard category="airpode" heading="Top's Airpodes" />
+            <HorizontalProductCard category="earphone" heading="Top's Earphones" />
 
             <VerticalProductCard category="mobile" heading="Top's Mobiles" />
             <VerticalProductCard category="printer" heading="Top's Printers" />
@@ -23,6 +25,5 @@ const HomePage = () => {
         </div>
     );
 };
-
 
 export default HomePage;

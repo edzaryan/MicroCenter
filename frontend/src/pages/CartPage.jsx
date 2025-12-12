@@ -1,13 +1,8 @@
-import {
-    useContext,
-    useEffect,
-    useState,
-    SummaryApi,
-    Context,
-    displayINRCurrency,
-    MdDelete
-} from "../utils/imports";
-
+import { useContext, useEffect, useState } from "react";
+import Context from "../context";
+import SummaryApi from "../common";
+import { MdDelete } from "react-icons/md";
+import displayINRCurrency from "../utils/helpers/displayCurrency";
 
 const CartPage = () => {
     const [data, setData] = useState([]);
@@ -190,6 +185,5 @@ const CartPage = () => {
         </div>
     );
 };
-
 
 export default CartPage;

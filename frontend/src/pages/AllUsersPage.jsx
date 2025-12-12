@@ -1,48 +1,44 @@
-import {
-  useEffect,
-  useState,
-  SummaryApi ,
-  toast,
-  moment,
-  MdModeEdit,
-  ChangeUserRole
-} from "../utils/imports";
-
+import { useEffect, useState } from "react";
+import SummaryApi from "../common";
+import { toast } from "react-toastify";
+import moment from "moment";
+import { MdModeEdit } from "react-icons/md";
+import ChangeUserRole from "../components/ChangeUserRole";
 
 const AllUsersPage = () => {
-  // const [allUsers, setAllUsers] = useState([]);
-  // const [openUpdateRole, setOpenUpdateRole] = useState(false);
-  // const [updateUserDetails, setUpdateUserDetails] = useState({
-  //   _id: "",
-  //   email: "",
-  //   name: "",
-  //   role: ""
-  // });
+  const [allUsers, setAllUsers] = useState([]);
+  const [openUpdateRole, setOpenUpdateRole] = useState(false);
+  const [updateUserDetails, setUpdateUserDetails] = useState({
+    _id: "",
+    email: "",
+    name: "",
+    role: ""
+  });
 
-  // useEffect(() => {
-  //   fetchAllUsers();
-  // }, []);
+  useEffect(() => {
+    fetchAllUsers();
+  }, []);
 
-  // const fetchAllUsers = async () => {
-  //   const fetchData = await fetch(SummaryApi.allUser.url, {
-  //     method: SummaryApi.allUser.method,
-  //     credentials: "include"
-  //   });
+  const fetchAllUsers = async () => {
+    const fetchData = await fetch(SummaryApi.allUser.url, {
+      method: SummaryApi.allUser.method,
+      credentials: "include"
+    });
 
-  //   const dataResponse = await fetchData.json();
+    const dataResponse = await fetchData.json();
 
-  //   if (dataResponse.success) {
-  //     setAllUsers(dataResponse.data);
-  //   }
+    if (dataResponse.success) {
+      setAllUsers(dataResponse.data);
+    }
 
-  //   if (dataResponse.error) {
-  //     toast.error(dataResponse.message);
-  //   }
-  // };
+    if (dataResponse.error) {
+      toast.error(dataResponse.message);
+    }
+  };
 
   return (
     <div className="grid gap-3">
-      {/* <div className="bg-white py-2 px-4 flex justify-start items-center">
+      <div className="bg-white py-2 px-4 flex justify-start items-center">
         <h2 className="font-bold text-lg">All Users</h2>
       </div>
       <div className="bg-white">
@@ -90,10 +86,9 @@ const AllUsersPage = () => {
                 />
             )
         }
-      </div> */}
+      </div>
     </div>
   );
 };
-
 
 export default AllUsersPage;

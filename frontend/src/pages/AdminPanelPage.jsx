@@ -1,26 +1,18 @@
-import {
-    useContext,
-    useEffect,
-    FaRegCircleUser,
-    Link,
-    Outlet,
-    useNavigate,
-    role,
-    UserContext
-} from "../utils/imports";
-
+import { FaRegCircleUser } from "react-icons/fa6";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import UserContext from "../context/userContext";
+import role from "../common/role";
 
 const AdminPanelPage = () => {
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
 
-    console.log(user?.role);
-
-    // useEffect(() => {
-    //     if (user?.role !== role.ADMIN) {
-    //         navigate("/");
-    //     }
-    // }, [user]);
+    useEffect(() => {
+        if (user && user.role !== role.ADMIN) {
+            navigate("/");
+        }
+    }, [user, navigate]);
 
     return (
         <div className="min-h-[calc(100vh-120px)] md:flex hidden">

@@ -1,15 +1,12 @@
-import {
-    useState,
-    Link,
-    SummaryApi,
-    toast,
-    resetPasswordIcons,
-    lock,
-    useNavigate,
-    FaEye,
-    IoMdEyeOff, Button
-} from "../utils/imports";
-
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import SummaryApi from "../common";
+import { toast } from "react-toastify";
+import Button from "../components/Button";
+import { FaEye } from "react-icons/fa";
+import { IoMdEyeOff } from "react-icons/io";
+import lock from "../assets/icons/lock.png";
+import resetPasswordIcons from "../assets/icons/forgotPassword.gif";
 
 const ForgotPasswordPage = () => {
     const [step, setStep] = useState(1);
@@ -203,7 +200,11 @@ const ForgotPasswordPage = () => {
                                 placeholder="Enter new password"
                                 className="w-full h-full outline-none bg-transparent"
                             />
-                            <div className="cursor-pointer text-xl" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <FaEye /> : <IoMdEyeOff />}</div>
+                            <div
+                                className="cursor-pointer text-xl"
+                                onClick={() => setShowPassword(!showPassword)}>
+                                {showPassword ? <FaEye /> : <IoMdEyeOff />}
+                            </div>
                         </div>
                     </div>
                     <div className="grid">
@@ -219,11 +220,17 @@ const ForgotPasswordPage = () => {
                                 placeholder="Confirm new password"
                                 className="w-full h-full outline-none bg-transparent"
                             />
-                            <div className="cursor-pointer text-xl" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <FaEye /> : <IoMdEyeOff />}</div>
+                            <div
+                                className="cursor-pointer text-xl"
+                                onClick={() => setShowPassword(!showPassword)}>
+                                {showPassword ? <FaEye /> : <IoMdEyeOff />}
+                            </div>
                         </div>
                     </div>
                     <div className="grid justify-center p-5">
-                        <Button size="lg" shape="rounded" variant="danger">Reset Password</Button>
+                        <Button size="lg" shape="rounded" variant="danger">
+                            Reset Password
+                        </Button>
                     </div>
                 </form>
             )}

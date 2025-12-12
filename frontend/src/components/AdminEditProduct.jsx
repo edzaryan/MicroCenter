@@ -1,16 +1,13 @@
-import {
-    useState,
-    CgClose,
-    FaCloudUploadAlt,
-    MdDelete,
-    DisplayImage,
-    toast,
-    productCategory,
-    uploadImage,
-    SummaryApi
-} from "../utils/imports"
 import Button from "./Button";
-
+import { useState } from "react";
+import uploadImage from "../utils/helpers/uploadImage";
+import SummaryApi from "../common";
+import { toast } from "react-toastify";
+import { CgClose } from "react-icons/cg";
+import productCategory from "../utils/helpers/productCategory";
+import { FaCloudUploadAlt } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import DisplayImage from "./DisplayImage";
 
 const AdminEditProduct = ({ onClose, productData, fetchData }) => {
     const [openFullScreenImage, setOpenFullScreenImage] = useState(false);
@@ -123,7 +120,9 @@ const AdminEditProduct = ({ onClose, productData, fetchData }) => {
                     <label htmlFor="uploadImageInput">
                         <div className="p-2 bg-slate-100 border rounded h-32 w-full flex justify-center items-center cursor-pointer">
                             <div className="text-slate-500 flex justify-center items-center flex-col gap-2">
-                                <span className="text-4xl"><FaCloudUploadAlt /></span>
+                                <span className="text-4xl">
+                                    <FaCloudUploadAlt />
+                                </span>
                                 <p className="text-sm">Upload Product Image</p>
                                 <input type="file" id="uploadImageInput" className="hidden" onChange={handleUploadProduct} />
                             </div>
@@ -198,6 +197,5 @@ const AdminEditProduct = ({ onClose, productData, fetchData }) => {
         </div>
     );
 };
-
 
 export default AdminEditProduct;

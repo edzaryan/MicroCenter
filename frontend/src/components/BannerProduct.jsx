@@ -1,20 +1,16 @@
-import {
-    image1,
-    image2,
-    image3,
-    image4,
-    image5,
-    image1Mobile,
-    image2Mobile,
-    image3Mobile,
-    image4Mobile,
-    image5Mobile,
-    useEffect,
-    useState,
-    useCallback,
-    FaAngleLeft,
-    FaAngleRight
-} from "../utils/imports";
+import {useCallback, useEffect, useState} from "react";
+import image1 from "../assets/banner/img1.webp";
+import image2 from "../assets/banner/img2.webp";
+import image3 from "../assets/banner/img3.jpg";
+import image4 from "../assets/banner/img4.jpg";
+import image5 from "../assets/banner/img5.webp";
+import mobileImage1 from "../assets/banner/img1_mobile.jpg";
+import mobileImage2 from "../assets/banner/img2_mobile.webp";
+import mobileImage3 from "../assets/banner/img3_mobile.jpg";
+import mobileImage4 from "../assets/banner/img4_mobile.jpg";
+import mobileImage5 from "../assets/banner/img5_mobile.png";
+import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
+
 
 const BannerProduct = () => {
     const [currentImage, setCurrentImage] = useState(0);
@@ -28,11 +24,11 @@ const BannerProduct = () => {
     ];
 
     const mobileImages = [
-        { src: image1Mobile, alt: "Product banner 1 mobile" },
-        { src: image2Mobile, alt: "Product banner 2 mobile" },
-        { src: image3Mobile, alt: "Product banner 3 mobile" },
-        { src: image4Mobile, alt: "Product banner 4 mobile" },
-        { src: image5Mobile, alt: "Product banner 5 mobile" },
+        { src: mobileImage1, alt: "Product banner 1 mobile" },
+        { src: mobileImage2, alt: "Product banner 2 mobile" },
+        { src: mobileImage3, alt: "Product banner 3 mobile" },
+        { src: mobileImage4, alt: "Product banner 4 mobile" },
+        { src: mobileImage5, alt: "Product banner 5 mobile" },
     ];
 
     const nextImage = useCallback(() => {

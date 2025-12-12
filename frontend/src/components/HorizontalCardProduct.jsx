@@ -1,18 +1,11 @@
-import {
-    fetchCategoryWiseProduct,
-    displayINRCurrency,
-    FaAngleRight,
-    FaAngleLeft,
-    useContext,
-    useEffect,
-    addToCart,
-    useState,
-    Context,
-    useRef,
-    Button,
-    Link,
-} from "../utils/imports";
-
+import { useContext, useEffect, useRef, useState } from "react";
+import Context from "../context";
+import addToCart from "../utils/helpers/addToCart";
+import fetchCategoryWiseProduct from "../utils/helpers/fetchCategoryWiseProduct";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import Button from "./Button";
+import displayINRCurrency from "../utils/helpers/displayCurrency";
 
 const HorizontalCardProduct = ({ category, heading }) => {
     const [data, setData] = useState([]);
@@ -82,7 +75,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
                         data.map(product => (
                             <Link to={`product/${product?._id}`} key={product?._id} className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex">
                                 <div className="bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]">
-                                    <img src={product.productImage[0]} className="h-full hover:scale-110 transition-all" />
+                                    <img src={product.productImage[0]} className="h-full hover:scale-105 transition-all" />
                                 </div>
                                 <div className="p-4 grid">
                                     <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black">{product?.productName}</h2>
@@ -96,7 +89,9 @@ const HorizontalCardProduct = ({ category, heading }) => {
                                         variant="danger"
                                         size="sm"
                                         onClick={(e) => handleAddToCart(e, product?._id)}
-                                        danger>Add to Cart</Button>
+                                        danger>
+                                        Add to Cart
+                                    </Button>
                                 </div>
                             </Link>
                         )))
@@ -105,6 +100,5 @@ const HorizontalCardProduct = ({ category, heading }) => {
         </div>
     )
 }
-
 
 export default HorizontalCardProduct;
