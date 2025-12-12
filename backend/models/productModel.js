@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const productSchema = mongoose.Schema({
     productName: String,
     brandName: String,
@@ -12,7 +11,6 @@ const productSchema = mongoose.Schema({
 }, {
     timestamps: true
 });
-
 
 const productModel = mongoose.model("product", productSchema);
 

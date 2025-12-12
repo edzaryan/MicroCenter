@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const addToCart = mongoose.Schema({
    productId: {
        ref: "product",
@@ -11,7 +10,6 @@ const addToCart = mongoose.Schema({
 }, {
     timestamps: true
 });
-
 
 const addToCartModel = mongoose.model("cartProduct", addToCart);
 
