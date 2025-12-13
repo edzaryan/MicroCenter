@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
+import App from "../pages/App";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
@@ -11,8 +11,6 @@ import SearchProductPage from "../pages/SearchProductPage";
 import AdminPanelPage from "../pages/AdminPanelPage";
 import AllUsersPage from "../pages/AllUsersPage";
 import AllProductsPage from "../pages/AllProductsPage";
-
-
 
 const router = createBrowserRouter(
     [

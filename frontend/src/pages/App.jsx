@@ -1,14 +1,11 @@
-import "react-toastify/dist/ReactToastify.css";
-import "./App.css";
 import { useEffect, useState } from "react";
-import SummaryApi from "./common";
+import SummaryApi from "../common/index";
 import { ToastContainer } from "react-toastify";
 import { Outlet } from "react-router-dom";
-import Footer from "./layout/Footer";
-import Header from "./layout/Header";
-import UserContext from "./context/userContext";
-import Context from "./context";
-
+import Footer from "../layout/Footer";
+import Header from "../layout/Header";
+import UserContext from "../context/userContext";
+import Context from "../context";
 
 const App = () => {
     const [cartProductCount, setCartProductCount] = useState(0);
@@ -28,12 +25,13 @@ const App = () => {
         } catch (error) {
             console.error("Error fetching user details:", error);
         }
-    }
+    };
 
+    // Fetch cart product count
     const fetchUserAddToCart = async () => {
         try {
             const dataResponse = await fetch(SummaryApi.addToCartProductCount.url, {
-                method: SummaryApi.addToCartProductCount.method, // Corrected method key
+                method: SummaryApi.addToCartProductCount.method,
                 credentials: "include",
             });
 
@@ -44,11 +42,15 @@ const App = () => {
         } catch (error) {
             console.error("Error fetching cart product count:", error);
         }
-    }
+    };
 
     useEffect(() => {
-        fetchUserDetails();
-        fetchUserAddToCart();
+        const fetchData = async () => {
+            await fetchUserDetails();
+            await fetchUserAddToCart();
+        };
+
+        fetchData();
     }, []);
 
     return (
@@ -65,6 +67,6 @@ const App = () => {
             </UserContext.Provider>
         </>
     );
-}
+};
 
 export default App;

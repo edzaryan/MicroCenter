@@ -48,7 +48,7 @@ const Header = () => {
     }
 
     return (
-        <div className="fixed top-0 left-0 right-0 border-b border-1 z-50 shadow-sm bg-white">
+        <div className="fixed top-0 left-0 right-0 z-5000 shadow-sm bg-white">
             <div className="mx-auto h-16 container grid md:grid-cols-[1fr_550px_1fr] grid-cols-[auto_1fr_auto] md:gap-0 gap-10">
                 <div className="flex items-center justify-start">
                     <Link className="grid align-middle" to="/">

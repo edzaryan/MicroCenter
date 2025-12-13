@@ -1,14 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  user-select: none;
+    user-select: none;
 }
 
-body {
-  @apply bg-slate-100
+.hidden-scrollbar::-webkit-scrollbar {
+    display: none;
 }
+
+.hidden-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scroll-smooth {
+    scroll-behavior: smooth;
+}
+

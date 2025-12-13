@@ -44,45 +44,77 @@ const HorizontalCardProduct = ({ category, heading }) => {
 
     return (
         <div className="container mx-auto px-4 my-6 relative">
-            <h2 className="text-2xl font-semibold py-4">{heading}</h2>
-            <div className="flex items-center gap-4 md:gap-6 overflow-scroll scrollbar-none" ref={scrollElement}>
-                <button 
-                    className="bg-white shadow-sm rounded-full p-2 absolute -left-2 text-lg hidden md:block z-10 hover:bg-gray-50 transition duration-200" 
-                    onClick={scrollLeft}>
-                    <FaAngleLeft size={26} />
-                </button>
-                <button 
-                    className="bg-white shadow-sm rounded-full p-2 absolute -right-2 text-lg hidden md:block z-10 hover:bg-gray-50 transition duration-200" 
-                    onClick={scrollRight}>
-                    <FaAngleRight size={26} />
-                </button>
+            <h2 className="text-2xl font-semibold py-2">{heading}</h2>
+            <div
+                ref={scrollElement}
+                className="grid grid-flow-col items-center gap-6 overflow-hidden scrollbar-none py-3 "
+            >
+                {
+                    !loading && (
+                        <>
+                            <button
+                                onClick={scrollLeft}
+                                className="bg-white shadow-sm rounded-full p-2 absolute -left-2 text-lg
+                                             block z-20 hover:bg-gray-50 transition duration-200 cursor-pointer"
+                            >
+                                <FaAngleLeft size={26} />
+                            </button>
+                            <button
+                                onClick={scrollRight}
+                                className="bg-white shadow-sm rounded-full p-2 absolute -right-2 text-lg
+                                             block z-20 hover:bg-gray-50 transition duration-200 cursor-pointer"
+                            >
+                                <FaAngleRight size={26} />
+                            </button>
+                        </>
+                    )
+                }
                 {
                     loading ? (
                         loadingList.map((product, index)=> (
-                            <div key={index} className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex">
-                                <div className="bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px] animate-pulse"></div>
-                                <div className="p-4 grid w-full gap-2">
-                                    <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black bg-slate-200 animate-pulse p-1 rounded-full"></h2>
-                                    <p className="capitalize text-slate-500 p-1 bg-slate-200 animate-pulse rounded-full"></p>
-                                    <div className="flex gap-3 w-full">
-                                        <p className="text-red-600 font-medium p-1 bg-slate-200 w-full animate-pulse rounded-full"></p>
-                                        <p className="text-slate-500 line-through p-1 bg-slate-200 w-full animate-pulse rounded-full"></p>
+                            <div
+                                key={index}
+                                className="rounded-lg shadow-md w-[320px] grid grid-cols-[150px_1fr]"
+                            >
+                                <div className="bg-slate-200 animate-pulse rounded-l-lg h-[150px]" />
+                                <div className="grid gap-1 w-full rounded-r-lg p-4">
+                                    <p className="bg-slate-200 animate-pulse h-[28px] rounded-full" />
+                                    <p className="capitalize text-slate-500 h-[24px] bg-slate-200 animate-pulse rounded-full" />
+                                    <div className="flex gap-3 w-full h-[24]">
+                                        <p className="p-2 bg-slate-200 w-full animate-pulse rounded-full" />
+                                        <p className="p-2 bg-slate-200 w-full animate-pulse rounded-full" />
                                     </div>
-                                    <button className="text-sm text-white px-3 py-0.5 rounded-full w-full bg-slate-200 animate-pulse"></button>
+                                    <div className="text-sm text-white h-[28px] rounded-full w-full bg-slate-200 animate-pulse" />
                                 </div>
                             </div>
                         ))) : (
                         data.map(product => (
-                            <Link to={`product/${product?._id}`} key={product?._id} className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex">
-                                <div className="bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]">
-                                    <img src={product.productImage[0]} className="h-full hover:scale-105 transition-all" />
+                            <Link
+                                to={`product/${product?._id}`}
+                                key={product?._id}
+                                className="rounded-lg shadow-md w-[320px] grid grid-cols-[150px_1fr]"
+                            >
+                                <div className="grid justify-center items-center bg-slate-200 p-4 rounded-l-lg">
+                                    <img
+                                        src={product.productImage[0]}
+                                        alt={product?.productName || `Product image ${product?._id}`}
+                                        className="h-full hover:scale-105 transition-all"
+                                    />
                                 </div>
-                                <div className="p-4 grid">
-                                    <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black">{product?.productName}</h2>
-                                    <p className="capitalize text-slate-500">{product?.category}</p>
+                                <div className="grid gap-1 w-full border border-l-0 p-4 border-gray-100 rounded-r-lg">
+                                    <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black">
+                                        {product?.productName}
+                                    </h2>
+                                    <p className="capitalize text-slate-500">
+                                        {product?.category}
+                                    </p>
                                     <div className="flex gap-3">
-                                        <p className="text-red-600 font-medium">{displayINRCurrency(product?.sellingPrice)}</p>
-                                        <p className="text-slate-500 line-through">{displayINRCurrency(product?.price)}</p>
+                                        <p className="text-red-600 font-medium">
+                                            {displayINRCurrency(product?.sellingPrice)}
+                                        </p>
+                                        <p className="text-slate-500 line-through">
+                                            {displayINRCurrency(product?.price)}
+                                        </p>
                                     </div>
                                     <Button
                                         shape="rounded"

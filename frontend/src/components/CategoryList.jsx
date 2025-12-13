@@ -6,8 +6,6 @@ const CategoryList = () => {
     const [categoryProduct, setCategoryProduct] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const categoryLoading = new Array(13).fill(null);
-
     const fetchCategoryProduct = async () => {
         setLoading(true);
         const response = await fetch(SummaryApi.categoryProduct.url);
@@ -21,12 +19,17 @@ const CategoryList = () => {
     }, [])
 
     return (
-        <div className="container mx-auto p-4">
-            <div className="flex items-center gap-4 justify-between overflow-scroll scrollbar-none">
+        <div className="container mx-auto p-4 overflow-x-hidden">
+            <div className="flex justify-between gap-3">
                 {
                     loading ? (
-                        categoryLoading.map((_, index) => (
-                            <div className="h-16 w-16 md:w-20 md:h-20 rounded-full overflow-hidden bg-slate-200 animate-pulse" key={`categoryLoading-${index}`} />
+                        [...Array(12)].map((_, index) => (
+                            <div>
+                                <div
+                                    className="w-18 h-18 md:w-20 md:h-20 rounded-full overflow-hidden p-4 bg-slate-200"
+                                    key={index}
+                                />
+                            </div>
                         ))
                     ) : (
                         categoryProduct.map(product => (
@@ -35,10 +38,17 @@ const CategoryList = () => {
                                 className="cursor-pointer"
                                 key={product?.category}
                             >
-                                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden p-4 bg-slate-200 flex items-center justify-center">
-                                    <img src={product?.productImage[0]} alt={product?.category} className="h-full object-scale-down mix-blend-multiply hover:scale-110 transition-all"/>
+                                <div className="w-18 h-18 md:w-20 md:h-20 rounded-full overflow-hidden
+                                                p-4 bg-slate-200 flex items-center justify-center">
+                                    <img
+                                        src={product?.productImage[0]}
+                                        className="h-full object-scale-down mix-blend-multiply hover:scale-110 transition-all"
+                                        alt={product?.category}
+                                    />
                                 </div>
-                                <p className="text-center text-sm md:text-base capitalize">{product?.category}</p>
+                                <p className="text-center text-sm md:text-[15px] capitalize mt-1">
+                                    {product?.category}
+                                </p>
                             </Link>
                         ))
                     )
@@ -46,6 +56,6 @@ const CategoryList = () => {
             </div>
         </div>
     );
-};
+}
 
 export default CategoryList;

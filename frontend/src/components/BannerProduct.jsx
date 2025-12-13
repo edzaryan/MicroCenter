@@ -53,10 +53,8 @@ const BannerProduct = () => {
             <button
                 onClick={prevImage}
                 className="
-                    absolute -left-3
-                    top-1/2 -translate-y-1/2
-                    z-[50] 
-                    bg-white shadow-lg rounded-full p-3
+                    absolute -left-3 top-1/2 -translate-y-1/2
+                    z-[50] cursor-pointer bg-white shadow-lg rounded-full p-3
                     text-[28px] hover:bg-gray-100 transition duration-200
                     hidden md:flex items-center justify-center
                 "
@@ -66,10 +64,8 @@ const BannerProduct = () => {
             <button
                 onClick={nextImage}
                 className="
-                    absolute -right-3
-                    top-1/2 -translate-y-1/2
-                    z-[50]
-                    bg-white shadow-lg rounded-full p-3
+                    absolute -right-3 top-1/2 -translate-y-1/2
+                    z-[50] cursor-pointer bg-white shadow-lg rounded-full p-3
                     text-[28px] hover:bg-gray-100 transition duration-200
                     hidden md:flex items-center justify-center
                 "
