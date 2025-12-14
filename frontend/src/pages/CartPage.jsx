@@ -111,61 +111,97 @@ const CartPage = () => {
 
     return (
         <div className="container mx-auto">
-            <div className="text-center text-lg my-3">
-                {data.length === 0 && !loading && (
-                    <p className="bg-white py-5">No Data</p>
-                )}
-            </div>
+            {/*<div className="text-center text-lg">*/}
+            {/*    {data.length === 0 && !loading && (*/}
+            {/*        <p className="bg-white py-5">No Data</p>*/}
+            {/*    )}*/}
+            {/*</div>*/}
 
             <div className="flex flex-col lg:flex-row gap-10 lg:justify-between p-4">
-                <div className="w-full max-w-3xl">
+                <div className="w-full grid gap-3">
                     {loading ? (
                         loadingCart.map((el, index) => (
-                            <div key={index} className="w-full bg-slate-200 h-32 my-2 border border-slate-300 rounded" />
+                            <div
+                                key={index}
+                                className="w-full h-32 bg-slate-200 my-2 border border-slate-300 rounded"
+                            />
                         ))
                     ) : (
                         data.map((product) => {
                             const productDetails = product?.productId || {};
                             return (
-                                <div key={product._id} className="w-full bg-white h-32 my-2 border border-slate-300 rounded grid grid-cols-[128px,1fr]">
-                                    <div className="w-32 h-32 bg-slate-200">
-                                        <img src={productDetails.productImage?.[0]} className="w-full h-full object-scale-down mix-blend-multiply" alt="Product" />
+                                <div
+                                    key={product._id}
+                                    className="grid grid-cols-[150px_1fr] border border-slate-200 rounded-lg shadow-md"
+                                >
+                                    <div className="rounded-l-lg bg-slate-200 w-[150px] h-[150px] p-4 flex
+                                                    items-center justify-center">
+                                        <img
+                                            src={productDetails.productImage?.[0]}
+                                            className="h-full w-full object-contain hover:scale-105 transition-all"
+                                            alt="Product"
+                                        />
                                     </div>
-                                    <div className="px-4 py-2 relative">
-                                        <div
-                                            className="absolute right-0 text-red-600 rounded-full p-2 hover:bg-red-600 hover:text-white cursor-pointer"
-                                            onClick={() => deleteCartProduct(product?._id)}>
-                                            <MdDelete />
+
+                                    <div className="relative p-4">
+                                        <div className="flex justify-between items-center">
+                                            <h2 className="text-lg lg:text-xl text-ellipsis line-clamp-1">
+                                                {productDetails.productName}
+                                            </h2>
+                                            <div
+                                                className="shadow-md transition-all duration-200 text-red-600
+                                                           rounded-full p-2 bg-gray-50 border hover:bg-red-600
+                                                           hover:text-white cursor-pointer"
+                                                onClick={() => deleteCartProduct(product?._id)}
+                                            >
+                                                <MdDelete />
+                                            </div>
                                         </div>
-                                        <h2 className="text-lg lg:text-xl text-ellipsis line-clamp-1">{productDetails.productName}</h2>
-                                        <p className="capitalize text-slate-500">{productDetails.category || "No Category"}</p>
+
+                                        <p className="capitalize text-slate-500">
+                                            {productDetails.category || "No Category"}
+                                        </p>
+
                                         <div className="flex items-center justify-between">
-                                            <p className="text-red-600 font-medium text-lg">{displayINRCurrency(productDetails.sellingPrice)}</p>
-                                            <p className="text-slate-600 font-semibold text-lg">{displayINRCurrency((productDetails.sellingPrice || 0) * product.quantity)}</p>
+                                            <p className="text-red-600 font-medium text-lg">
+                                                {displayINRCurrency(productDetails.sellingPrice)}
+                                            </p>
+                                            <p className="text-slate-600 font-semibold text-lg">
+                                                {displayINRCurrency((productDetails.sellingPrice || 0) * product.quantity)}
+                                            </p>
                                         </div>
+
                                         <div className="flex items-center gap-3 mt-1">
                                             <button
-                                                className="border border-red-600 hover:bg-red-600 hover:text-white text-red-600 w-6 h-6 flex justify-center items-center rounded"
-                                                onClick={() => decreaseQty(product?._id, product?.quantity)}>
+                                                onClick={() => decreaseQty(product?._id, product?.quantity)}
+                                                className="shadow-md transition-all duration-200 cursor-pointer border
+                                                         border-red-600 hover:bg-red-600 hover:text-white
+                                                         text-red-600 w-7 h-7 flex justify-center items-center rounded"
+                                            >
                                                 -
                                             </button>
+
                                             <span>{product?.quantity}</span>
+
                                             <button
-                                                className="border border-red-600 hover:bg-red-600 hover:text-white text-red-600 w-6 h-6 flex justify-center items-center rounded"
-                                                onClick={() => increaseQty(product?._id, product?.quantity)}>
+                                                onClick={() => increaseQty(product?._id, product?.quantity)}
+                                                className="shadow-md transition-all duration-200 cursor-pointer border
+                                                         border-red-600 hover:bg-red-600 hover:text-white
+                                                         text-red-600 w-7 h-7 flex justify-center items-center rounded"
+                                            >
                                                 +
                                             </button>
                                         </div>
                                     </div>
                                 </div>
+
                             );
                         })
                     )}
                 </div>
                 <div className="mt-5 lg:mt-0 w-full max-w-sm">
                     {loading ? (
-                        <div className="h-36 bg-slate-200 border border-slate-300 animate-pulse">
-                        </div>
+                        <div className="h-36 bg-slate-200 border border-slate-300 animate-pulse" />
                     ) : (
                         <div className="h-36 bg-white">
                             <h2 className="text-white bg-red-600 px-4 py-1">Summary</h2>
@@ -184,6 +220,6 @@ const CartPage = () => {
             </div>
         </div>
     );
-};
+}
 
 export default CartPage;
