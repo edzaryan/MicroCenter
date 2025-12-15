@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import SummaryApi from "../common";
 import productCategory from "../utils/helpers/productCategory";
+import { useLocation, useNavigate } from "react-router-dom";
 import VerticalCard from "../components/VerticalCard";
-import Radio from "../components/form/Radio";
 import Checkbox from "../components/form/Checkbox";
+import Radio from "../components/form/Radio";
+import { useEffect, useState } from "react";
+import SummaryApi from "../common";
 
 const CategoryProductPage = () => {
     const location = useLocation();
@@ -115,18 +115,18 @@ const CategoryProductPage = () => {
                 </div>
 
                 <div className="w-full">
-                    {!loading && (
-                        <p className="text-lg font-semibold my-3">
-                            {data.length === 0
-                                ? "No products match your filters"
-                                : `${data.length} items available`}
-                        </p>
-                    )}
-
                     {loading && <p className="text-center py-4">Loading...</p>}
 
                     {!loading && data.length > 0 && (
-                        <VerticalCard data={data} loading={loading} />
+                        <VerticalCard 
+                            data={data} 
+                            loading={loading} 
+                            heading={
+                                loading && data.length === 0 
+                                    ? "No products match your filters" 
+                                    : `${data.length} items available`
+                                } 
+                        />
                     )}
                 </div>
             </div>

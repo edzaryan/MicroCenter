@@ -21,16 +21,19 @@ const SearchProductPage = () => {
     }, [fetchProduct]);
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto">
             {loading && <p className="text-lg text-center">Loading...</p>}
-            <p className="text-lg font-semibold my-3">Search Results: {data.length}</p>
 
             {data.length === 0 && !loading && (
                 <p className="bg-white text-lg text-center p-4">No Data Found...</p>
             )}
 
             {!loading && data.length !== 0 && (
-                <VerticalCard loading={loading} data={data} />
+                <VerticalCard 
+                    loading={loading} 
+                    data={data} 
+                    heading={`Search Results: ${data.length}`} 
+                />
             )}
         </div>
     );

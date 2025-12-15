@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import Context from "../context";
-import SummaryApi from "../common";
-import { MdDelete } from "react-icons/md";
 import displayINRCurrency from "../utils/helpers/displayCurrency";
+import { useContext, useEffect, useState } from "react";
+import { MdDelete } from "react-icons/md";
+import SummaryApi from "../common";
+import Context from "../context";
 import cn from "classnames";
 
 const CartPage = () => {
@@ -99,7 +99,6 @@ const CartPage = () => {
 
             <div className="flex flex-col lg:flex-row gap-10 lg:justify-between py-3">
                 
-                {/* LEFT SIDE — CART ITEMS */}
                 <div className="w-full grid gap-4 animate-fade-slide" style={{ animationDelay: "0ms" }}>
                     {loading ? (
                         loadingCart.map((_, idx) => (
@@ -193,7 +192,6 @@ const CartPage = () => {
                     )}
                 </div>
 
-                {/* RIGHT SIDE — SUMMARY */}
                 <div
                     className="w-full lg:max-w-sm animate-fade-slide"
                     style={{ animationDelay: "0ms" }}
