@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import SummaryApi from "../common/index.js";
+import SummaryApi from "./common";
 import { ToastContainer } from "react-toastify";
 import { Outlet } from "react-router-dom";
-import Footer from "../components/layout/Footer.jsx";
-import Header from "../components/layout/Header.jsx";
-import UserContext from "../context/userContext.js";
-import Context from "../context/index.js";
+import Footer from "./components/layout/Footer";
+import Header from "./components/layout/Header";
+import UserContext from "./context/userContext.js";
+import Context from "./context";
 
 const App = () => {
     const [cartProductCount, setCartProductCount] = useState(0);

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import SummaryApi from "../common";
-import Radio from "../components/Radio";
 import productCategory from "../utils/helpers/productCategory";
-import Checkbox from "../components/Checkbox";
 import VerticalCard from "../components/VerticalCard";
+import Radio from "../components/form/Radio";
+import Checkbox from "../components/form/Checkbox";
 
 const CategoryProductPage = () => {
     const location = useLocation();

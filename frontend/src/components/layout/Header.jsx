@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import UserContext from "../../context/userContext.js";
-import Context from "../../context/index.js";
+import Context from "../../context";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import SummaryApi from "../../common/index.js";
+import SummaryApi from "../../common";
 import { toast } from "react-toastify";
 import Logo from "../Logo.jsx";
 import SearchInput from "../SearchInput.jsx";
