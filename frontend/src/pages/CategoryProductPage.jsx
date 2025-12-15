@@ -7,63 +7,48 @@ import Checkbox from "../components/Checkbox";
 import VerticalCard from "../components/VerticalCard";
 
 const CategoryProductPage = () => {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [selectedCategories, setSelectedCategories] = useState([]);
-    const [sortBy, setSortBy] = useState("asc");
-
     const location = useLocation();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const categoriesFromURL = params.getAll("category");
-        const sortFromURL = params.get("sortBy");
+    const params = new URLSearchParams(window.location.search);
+    const initialCategories = params.getAll("category");
+    const initialSort = params.get("sortBy") || "asc";
 
-        if (categoriesFromURL.length > 0) {
-            setSelectedCategories(categoriesFromURL);
-        }
-        if (sortFromURL) {
-            setSortBy(sortFromURL);
-        }
-    }, []);
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [selectedCategories, setSelectedCategories] = useState(initialCategories);
+    const [sortBy, setSortBy] = useState(initialSort);
 
     useEffect(() => {
-        const params = new URLSearchParams();
+        const query = new URLSearchParams();
+        selectedCategories.forEach((c) => query.append("category", c));
+        query.set("sortBy", sortBy);
 
-        selectedCategories.forEach((c) => params.append("category", c));
-        params.set("sortBy", sortBy);
-
-        const newQuery = params.toString();
-
-        if (newQuery !== location.search.substring(1)) {
-            navigate({ search: newQuery }, { replace: true });
+        const newQueryString = query.toString();
+        if (newQueryString !== location.search.substring(1)) {
+            navigate({ search: newQueryString }, { replace: true });
         }
     }, [selectedCategories, sortBy, navigate, location.search]);
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
             try {
-                setLoading(true);
-
                 const response = await fetch(SummaryApi.filterProduct.url, {
                     method: SummaryApi.filterProduct.method,
-                    headers: {
-                        "content-type": "application/json",
-                    },
+                    headers: { "content-type": "application/json" },
                     body: JSON.stringify({
                         category: selectedCategories,
                         sortBy: sortBy,
                     }),
                 });
 
-                const dataResponse = await response.json();
-                setData(dataResponse?.data || []);
-            } catch (err) {
-                console.error(err);
-            } finally {
-                setLoading(false);
+                const json = await response.json();
+                setData(json?.data || []);
+            } catch (error) {
+                console.error(error);
             }
+            setLoading(false);
         };
 
         fetchData();
@@ -71,20 +56,20 @@ const CategoryProductPage = () => {
 
     const handleSelectCategory = ({ target: { value, checked } }) => {
         setSelectedCategories((prev) =>
-            checked ? [...prev, value] : prev.filter((category) => category !== value)
+            checked ? [...prev, value] : prev.filter((c) => c !== value)
         );
     };
 
-    const handleOnChangeSortBy = (e) => {
+    const handleSortChange = (e) => {
         setSortBy(e.target.value);
     };
 
     return (
         <div className="container mx-auto p-4">
-            <div className="grid grid-cols-[220px,1fr] items-start">
-                <div className="grid content-start gap-4 bg-white px-4 py-5">
-                    <div className="grid gap-2">
-                        <h3 className="uppercase font-medium text-sm text-slate-600 border-b pb-1 border-slate-300">
+            <div className="grid grid-cols-1 md:grid-cols-[260px_1fr] gap-6">
+                <div className="bg-white rounded-lg shadow p-4 h-fit">
+                    <div className="mb-6">
+                        <h3 className="uppercase font-medium text-sm text-slate-600 border-b pb-1">
                             Sort by
                         </h3>
 
@@ -95,34 +80,33 @@ const CategoryProductPage = () => {
                                 value="asc"
                                 label="Price - Low to High"
                                 checked={sortBy === "asc"}
-                                onChange={handleOnChangeSortBy}
+                                onChange={handleSortChange}
                             />
-
                             <Radio
                                 id="sort-dsc"
                                 name="sortBy"
                                 value="dsc"
                                 label="Price - High to Low"
                                 checked={sortBy === "dsc"}
-                                onChange={handleOnChangeSortBy}
+                                onChange={handleSortChange}
                             />
                         </div>
                     </div>
 
-                    <div className="grid gap-2">
-                        <h3 className="uppercase font-medium text-sm text-slate-600 border-b pb-1 border-slate-300">
+                    <div>
+                        <h3 className="uppercase font-medium text-sm text-slate-600 border-b pb-1">
                             Category
                         </h3>
 
                         <div className="text-sm flex flex-col gap-2 py-2">
-                            {productCategory.map((categoryName) => (
+                            {productCategory.map((cat) => (
                                 <Checkbox
-                                    key={categoryName.value}
-                                    id={categoryName.value}
+                                    key={cat.value}
+                                    id={cat.value}
                                     name="category"
-                                    value={categoryName.value}
-                                    label={categoryName.label}
-                                    checked={selectedCategories.includes(categoryName.value)}
+                                    value={cat.value}
+                                    label={cat.label}
+                                    checked={selectedCategories.includes(cat.value)}
                                     onChange={handleSelectCategory}
                                 />
                             ))}
@@ -130,28 +114,24 @@ const CategoryProductPage = () => {
                     </div>
                 </div>
 
-                <div className="px-4">
-                    <p className="font-medium text-slate-800 text-lg my-2">
-                        Search Results : {data.length}
-                    </p>
-
-                    {!loading && data.length !== 0 && (
-                        <VerticalCard data={data} loading={loading} />
-                    )}
-
-                    {!loading && data.length === 0 && (
-                        <p className="text-center py-4 text-slate-500">
-                            No products found.
+                <div className="w-full">
+                    {!loading && (
+                        <p className="text-lg font-semibold my-3">
+                            {data.length === 0
+                                ? "No products match your filters"
+                                : `${data.length} items available`}
                         </p>
                     )}
 
-                    {loading && (
-                        <p className="text-center py-4">Loading...</p>
+                    {loading && <p className="text-center py-4">Loading...</p>}
+
+                    {!loading && data.length > 0 && (
+                        <VerticalCard data={data} loading={loading} />
                     )}
                 </div>
             </div>
         </div>
     );
-}
+};
 
 export default CategoryProductPage;
