@@ -2,24 +2,40 @@ import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+import { SignupDto } from './dto/signup.dto';
 
 @Injectable()
 export class AuthService {
   constructor(private usersService: UsersService) {}
 
-  async signup(dto: any) {
-    const existing = await this.usersService.findByEmail(dto.email);
-    if (existing) {
-      throw new BadRequestException('Email already exists');
+  async signup(dto: SignupDto) {
+    try {
+      const existing = await this.usersService.findByEmail(dto.email);
+
+      if (existing) {
+        throw new BadRequestException('Email already exists');
+      }
+
+      const hash = await bcrypt.hash(dto.password, 10);
+
+      const user = await this.usersService.createUser({
+        name: dto.name,
+        email: dto.email,
+        password: hash,
+        role: 'USER',
+      });
+
+      return {
+        success: true,
+        message: "User registered successfully",
+        userId: user._id
+      }
+    } catch (error) {
+      return {
+        success: false,
+        message: "User registration failed"
+      }
     }
-
-    const hash = await bcrypt.hash(dto.password, 10);
-
-    return this.usersService.createUser({
-      email: dto.email,
-      password: hash,
-      role: 'USER',
-    });
   }
 
   async signin(dto: any) {

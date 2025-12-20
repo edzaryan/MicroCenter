@@ -1,25 +1,48 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
+import { UsersService } from '../users/users.service';
+import { MailService } from '../mail/mail.service';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
-import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class PasswordService {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly mailService: MailService
+  ) {}
 
-  async forgot(email: string) {
+  private generateVerificationCode() {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  }
+
+  async forgotPassword(email: string) {
     const user = await this.usersService.findByEmail(email);
-    if (!user) throw new BadRequestException('User not found');
+    
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
 
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    const verificationCode = this.generateVerificationCode();
+
+    console.log(verificationCode);
 
     const token = jwt.sign(
-      { email, code },
-      process.env.TOKEN_SECRET_KEY,
+      { email, verificationCode },
+      process.env.TOKEN_SECRET_KEY!,
       { expiresIn: '15m' },
     );
 
-    // send email here later
+    const sent = await this.mailService.sendEmail(
+      email,
+      verificationCode,
+      'Password Reset Verification Code',
+      `Your verification code is ${verificationCode}`,
+    );
+
+    if (!sent) {
+      throw new Error('Failed to send email');
+    }
+
     return token;
   }
 

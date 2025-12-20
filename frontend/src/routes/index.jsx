@@ -1,16 +1,16 @@
-import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
-import HomePage from "../pages/HomePage";
-import LoginPage from "../pages/LoginPage";
-import ForgotPasswordPage from "../pages/ForgotPasswordPage";
-import SignUpPage from "../pages/SignUpPage";
 import CategoryProductPage from "../pages/CategoryProductPage";
-import CartPage from "../pages/CartPage";
+import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage";
 import ProductDetailsPage from "../pages/ProductDetailsPage";
 import SearchProductPage from "../pages/SearchProductPage";
+import { createBrowserRouter } from "react-router-dom";
+import AllProductsPage from "../pages/AllProductsPage";
 import AdminPanelPage from "../pages/AdminPanelPage";
 import AllUsersPage from "../pages/AllUsersPage";
-import AllProductsPage from "../pages/AllProductsPage";
+import SigninPage from "../pages/auth/SigninPage";
+import SignUpPage from "../pages/auth/SignUpPage";
+import HomePage from "../pages/HomePage";
+import CartPage from "../pages/CartPage";
+import App from "../App";
 
 const router = createBrowserRouter(
     [
@@ -19,9 +19,9 @@ const router = createBrowserRouter(
             element: <App />,
             children: [
                 { path: "", element: <HomePage /> },
-                { path: "login", element: <LoginPage /> },
-                { path: "forgot-password", element: <ForgotPasswordPage /> },
+                { path: "signin", element: <SigninPage /> },
                 { path: "signup", element: <SignUpPage /> },
+                { path: "forgot-password", element: <ForgotPasswordPage /> },
                 { path: "product-category", element: <CategoryProductPage /> },
                 { path: "cart", element: <CartPage /> },
                 { path: "product/:id", element: <ProductDetailsPage /> },

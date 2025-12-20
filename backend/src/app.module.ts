@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './modules/users/users.module'; 
 import { ProductsModule } from './modules/products/products.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { CartsModule } from "./modules/carts/carts.module";
 import chalk from 'chalk';
 
@@ -28,7 +29,8 @@ import chalk from 'chalk';
 
     UsersModule,
     ProductsModule,
-    CartsModule
+    CartsModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

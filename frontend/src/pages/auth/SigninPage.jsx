@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Context from "../context";
-import SummaryApi from "../common";
+import Context from "../../context";
+import SummaryApi from "../../common";
 import { toast } from "react-toastify";
-import loginIcons from "../assets/icons/signin.gif";
+import loginIcons from "../../assets/icons/signin.gif";
 import { FaEye } from "react-icons/fa";
 import { IoMdEyeOff } from "react-icons/io";
-import Button from "../components/Button";
+import Button from "../../components/Button";
 
 const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -54,9 +54,16 @@ const LoginPage = () => {
         <div className="m-10">
             <form
                 className="bg-white rounded-sm shadow-sm py-7 px-5 w-full flex flex-col max-w-sm mx-auto gap-2"
-                onSubmit={handleSubmit}>
+                onSubmit={handleSubmit}
+            >
                 <div className="w-20 h-20 mx-auto rounded-full">
                     <img className="rounded-full" src={loginIcons} alt="login icons" />
+                </div>
+                <div className="text-center mb-4">
+                    <h1 className="text-2xl font-semibold">Welcome back</h1>
+                    <p className="text-sm text-gray-500 mt-1">
+                        Sign in to your account
+                    </p>
                 </div>
                 <div className="grid">
                     <label htmlFor="email">Email</label>
@@ -69,7 +76,7 @@ const LoginPage = () => {
                             onChange={handleChange}
                             value={data.email}
                             placeholder="Enter email"
-                            className="w-full h-full outline-none bg-transparent"
+                            className="w-full h-full outline-none bg-transparent p-1"
                         />
                     </div>
                 </div>
@@ -84,16 +91,26 @@ const LoginPage = () => {
                             onChange={handleChange}
                             value={data.password}
                             placeholder="Enter password"
-                            className="w-full h-full outline-none bg-transparent"
+                            className="w-full h-full outline-none bg-transparent p-1"
                         />
                         <div className="cursor-pointer text-xl" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <FaEye /> : <IoMdEyeOff />}</div>
                     </div>
-                    <Link to="/forgot-password" className="block w-fit ml-auto hover:underline hover:text-red-600 mt-2">Forgot password?</Link>
+                    <Link 
+                        to="/forgot-password" 
+                        className="block w-fit ml-auto hover:underline hover:text-red-600 mt-2">
+                        Forgot password?
+                    </Link>
                 </div>
-                <div className="grid justify-center p-5">
-                    <Button size="lg" shape="rounded" variant="danger">Login</Button>
+                <div className="py-5">
+                    <Button shape="rounded" variant="danger" block={true}>
+                        Login
+                    </Button>
                 </div>
-                <div>Don't have an account? <Link to="/signup" className="text-red-600 hover:text-red-700 hover:underline">Sign up</Link></div>
+                <div>Don't have an account?{" "}
+                    <Link to="/signup" className="text-red-600 hover:text-red-700 hover:underline">
+                        Sign up
+                    </Link>
+                </div>
             </form>
         </div>
     );

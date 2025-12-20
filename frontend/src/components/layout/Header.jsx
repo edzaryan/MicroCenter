@@ -102,7 +102,7 @@ const Header = () => {
                         )}
                         {user?._id
                             ? <Button onClick={handleLogout} size="md" shape="rounded" variant="danger">Logout</Button>
-                            : <NavLink to="/login" variant="danger">Login</NavLink>
+                            : <NavLink to="/signin" variant="danger">Login</NavLink>
                         }
                     </div>
                 </div>

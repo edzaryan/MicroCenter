@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import SummaryApi from "./common";
+import UserContext from "./context/userContext.js";
 import { ToastContainer } from "react-toastify";
-import { Outlet } from "react-router-dom";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
-import UserContext from "./context/userContext.js";
+import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+import SummaryApi from "./common";
 import Context from "./context";
 
 const App = () => {

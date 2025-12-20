@@ -1,16 +1,16 @@
 import { Injectable, Logger } from '@nestjs/common';
-import * as sgMail from '@sendgrid/mail';
+import sgMail from '@sendgrid/mail';
 
 @Injectable()
 export class MailService {
   private readonly logger = new Logger(MailService.name);
 
   constructor() {
-    if (!process.env.API_KEY) {
+    if (!process.env.SENDGRID_API_KEY) {
       throw new Error('SendGrid API_KEY is not defined');
     }
 
-    sgMail.setApiKey(process.env.API_KEY);
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
   }
 
   async sendEmail(
@@ -19,19 +19,18 @@ export class MailService {
     subject: string,
     text: string,
   ): Promise<boolean> {
-    const message = {
-      to: email,
-      from: {
-        name: 'Verification Code, AmitShop',
-        email: 'edzaryan@gmail.com',
-      },
-      subject,
-      text,
-      html: `<div>Your verification code is: <strong>${verificationCode}</strong></div>`,
-    };
-
     try {
-      await sgMail.send(message);
+      await sgMail.send({
+        to: email,
+        from: {
+          name: 'Verification Code, MICROCENTER',
+          email: 'melfox701@gmail.com',
+        },
+        subject,
+        text: `Your verification code is ${verificationCode}`,
+        html: `<div>Your verification code is: <strong>${verificationCode}</strong></div>`,
+      });
+      
       this.logger.log(`Email sent to ${email}`);
       return true;
     } catch (error) {

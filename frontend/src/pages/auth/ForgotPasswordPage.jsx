@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import SummaryApi from "../common";
+import SummaryApi from "../../common";
 import { toast } from "react-toastify";
-import Button from "../components/Button";
+import Button from "../../components/Button";
 import { FaEye } from "react-icons/fa";
 import { IoMdEyeOff } from "react-icons/io";
-import lock from "../assets/icons/lock.png";
-import resetPasswordIcons from "../assets/icons/forgotPassword.gif";
+import lock from "../../assets/icons/lock.png";
+import resetPasswordIcons from "../../assets/icons/forgotPassword.gif";
 
 const ForgotPasswordPage = () => {
     const [step, setStep] = useState(1);
@@ -133,12 +133,14 @@ const ForgotPasswordPage = () => {
                                 onChange={handleChange}
                                 value={email}
                                 placeholder="Enter email"
-                                className="w-full h-full outline-none bg-transparent"
+                                className="w-full h-full outline-none bg-transparent p-1"
                             />
                         </div>
                     </div>
-                    <div className="grid justify-center p-5">
-                        <Button size="lg" shape="rounded" variant="danger">Send</Button>
+                    <div className="py-5">
+                        <Button shape="rounded" variant="danger" block={true}>
+                            Send
+                        </Button>
                     </div>
                     <div>Don't have an account? <Link to="/signup" className="text-red-600 hover:text-red-700 hover:underline">Sign up</Link></div>
                 </form>

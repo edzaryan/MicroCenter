@@ -1,12 +1,13 @@
-import { useState, useEffect, useContext, useCallback } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import VerticalCard from "../components/VerticalCard"; 
-import { FaStar, FaStarHalf } from "react-icons/fa";
-import Context from "../context";
-import SummaryApi from "../common";
 import fetchCategoryWiseProduct from "../utils/helpers/fetchCategoryWiseProduct";
-import addToCart from "../utils/helpers/addToCart";
+import { useState, useEffect, useContext, useCallback } from "react";
 import displayINRCurrency from "../utils/helpers/displayCurrency";
+import { useNavigate, useParams } from "react-router-dom";
+import { FaStar, FaStarHalf } from "react-icons/fa";
+import addToCart from "../utils/helpers/addToCart";
+import VerticalCard from "../components/VerticalCard";
+import classnames from "classnames";
+import SummaryApi from "../common";
+import Context from "../context";
 
 const ProductDetailsPage = () => {
     const [data, setData] = useState({
@@ -85,50 +86,59 @@ const ProductDetailsPage = () => {
 
     return (
         <div className="container mx-auto p-4">
-            <div className="min-h-[200px] flex flex-col lg:flex-row gap-4">
-                <div className="h-96 flex flex-col lg:flex-row-reverse gap-4">
-                    <div className="h-[300px] w-[300px] lg:h-96 lg:w-96 bg-slate-200 relative p-2">
+            <div className="flex flex-col lg:flex-row gap-8">
+                <div className="grid grid-flow-col gap-2">
+                     <div className="h-full">
+                        {loading ? (
+                            <div className="flex lg:flex-col gap-2 overflow-scroll scrollbar-none h-full">
+                                {productImageListLoading.map((_, index) => (
+                                    <div key={index} className="w-23 h-23 bg-slate-200 rounded animate-pulse" />
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="flex lg:flex-col gap-2 h-full overflow-hidden">
+                                {data?.productImage?.map((url, index) => (
+                                    <div
+                                        key={index}
+                                        className={classnames(
+                                            "w-24 h-24 rounded-[8px] cursor-pointer transition border-3",
+                                            {
+                                                "border-red-500 bg-white": activeImage === url,
+                                                "border-transparent bg-slate-200": activeImage !== url,
+                                            }
+                                        )}
+                                    >
+                                        <img
+                                            className="w-full h-full object-scale-down mix-blend-multiply rounded-[5px]"
+                                            onClick={() => setActiveImage(url)}
+                                            alt={`Product ${index + 1}`}
+                                            src={url}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                    <div className="w-[450px] h-[450px] bg-slate-200 relative rounded">
                         <img
                             src={activeImage}
                             onMouseLeave={() => setZoomImage(false)}
                             onMouseMove={handleZoomImage}
-                            className="h-full w-full object-scale-down mix-blend-multiply"
+                            className="w-full h-full object-scale-down mix-blend-multiply rounded"
                             alt={activeImage ? data?.productName : ""}
                         />
 
                         {zoomImage && (
-                            <div className="hidden lg:block absolute w-[500px] h-[400px] bg-white -right-[510px] top-0 overflow-hidden shadow">
+                            <div className="absolute z-1000 w-[940px] h-[660px] hidden lg:block bg-white 
+                                            -right-[950px] top-0 overflow-hidden shadow-md rounded">
                                 <div
                                     className="w-full h-full bg-no-repeat"
                                     style={{
+                                        backgroundPosition: `${zoomImageCoordinate.x * 100}% ${zoomImageCoordinate.y * 100}%`,
                                         backgroundImage: `url(${activeImage})`,
                                         backgroundSize: "200%", 
-                                        backgroundPosition: `${zoomImageCoordinate.x * 100}% ${zoomImageCoordinate.y * 100}%`,
                                     }}
                                 />
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="h-full">
-                        {loading ? (
-                            <div className="flex lg:flex-col gap-2 overflow-scroll scrollbar-none h-full">
-                                {productImageListLoading.map((_, index) => (
-                                    <div key={index} className="h-20 w-20 bg-slate-200 rounded animate-pulse"></div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="flex lg:flex-col gap-2 overflow-scroll scrollbar-none h-full">
-                                {data?.productImage?.map((url, index) => (
-                                    <div key={index} className="h-20 w-20 bg-slate-200 rounded p-1">
-                                        <img
-                                            src={url}
-                                            alt={`Product ${index + 1}`}
-                                            className="w-full h-full object-scale-down mix-blend-multiply cursor-pointer"
-                                            onClick={() => setActiveImage(url)}
-                                        />
-                                    </div>
-                                ))}
                             </div>
                         )}
                     </div>
@@ -149,13 +159,19 @@ const ProductDetailsPage = () => {
                     </div>
                 ) : (
                     <div className="flex flex-col gap-1">
-                        <p className="bg-red-200 text-red-600 px-2 rounded-full w-fit">{data?.brandName}</p>
+                        <p className="bg-red-200 text-red-600 px-2 rounded-full w-fit">
+                            {data?.brandName}
+                        </p>
 
                         <h2 className="text-2xl lg:text-4xl font-medium">{data?.productName}</h2>
                         <p className="capitalize text-slate-400">{data?.category}</p>
 
                         <div className="text-red-600 flex gap-1">
-                            <FaStar /><FaStar /><FaStar /><FaStar /><FaStarHalf />
+                            <FaStar />
+                            <FaStar />
+                            <FaStar />
+                            <FaStar />
+                            <FaStarHalf />
                         </div>
 
                         <div className="flex items-center gap-2 text-2xl lg:text-3xl font-medium my-1">

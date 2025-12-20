@@ -67,7 +67,7 @@ export class UsersService {
     return this.userModel.findOne({ email });
   }
 
-  async createUser(data: { email: string; password: string; role?: string }) {
+  async createUser(data: { name: string; email: string; password: string; role?: string }) {
     const user = new this.userModel(data);
     return user.save();
   }

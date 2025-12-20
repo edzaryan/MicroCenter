@@ -2,15 +2,21 @@ import { Controller, Post, Body, Req, Res } from '@nestjs/common';
 import { PasswordService } from './password.service';
 import type { Request, Response } from 'express';
 
-@Controller('password')
+@Controller()
 export class PasswordController {
   constructor(private passwordService: PasswordService) {}
 
-  @Post('forgot')
-  async forgot(@Body('email') email: string, @Res() res: Response) {
-    const token = await this.passwordService.forgot(email);
-    res.cookie('token', token, { httpOnly: true, secure: false });
-    return res.json({ success: true });
+  @Post('forgot-password')
+  async forgotPassword(
+    @Body('email') email: string, 
+    @Res() res: Response
+  ) {
+    await this.passwordService.forgotPassword(email);
+
+    return res.json({ 
+      success: true,
+      message: "Password reset instructions sent"
+    });
   }
 
   @Post('verify')
