@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from "react";
+import { useCallback, useEffect, useState } from "react";
 import image1 from "../assets/banner/img1.webp";
 import image2 from "../assets/banner/img2.webp";
 import image3 from "../assets/banner/img3.jpg";
@@ -9,7 +9,7 @@ import mobileImage2 from "../assets/banner/img2_mobile.webp";
 import mobileImage3 from "../assets/banner/img3_mobile.jpg";
 import mobileImage4 from "../assets/banner/img4_mobile.jpg";
 import mobileImage5 from "../assets/banner/img5_mobile.png";
-import {FaAngleLeft, FaAngleRight} from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight} from "react-icons/fa";
 
 
 const BannerProduct = () => {

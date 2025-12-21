@@ -32,7 +32,7 @@ const VerticalCard = ({ loading, data = [], heading, handleAddToCart }) => {
                             onClick={scrollTop}
                             key={index}
                         >
-                            <div className="bg-slate-200 h-48 p-4 flex justify-center items-center">
+                            <div className="bg-slate-200 h-48 p-4 flex justify-center items-center rounded-t-sm">
                                 <img
                                     src={product?.productImage[0]}
                                     className="h-full object-scale-down hover:scale-105 transition-all mix-blend-multiply"
