@@ -1,10 +1,10 @@
 import fetchCategoryWiseProduct from "../utils/helpers/fetchCategoryWiseProduct";
-import { useState, useEffect, useContext, useCallback } from "react";
+import { FaStar, FaStarHalf, FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { useState, useEffect, useContext, useCallback, useRef } from "react";
 import displayINRCurrency from "../utils/helpers/displayCurrency";
 import { useNavigate, useParams } from "react-router-dom";
-import { FaStar, FaStarHalf, FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import addToCart from "../utils/helpers/addToCart";
 import VerticalCard from "../components/VerticalCard";
+import addToCart from "../utils/helpers/addToCart";
 import classnames from "classnames";
 import SummaryApi from "../common";
 import Context from "../context";
@@ -30,6 +30,9 @@ const ProductDetailsPage = () => {
     const [recommendedProducts, setRecommendedProducts] = useState(null);
     const [zoomImageCoordinate, setZoomImageCoordinate] = useState({ x: 0, y: 0 });
     const [zoomImage, setZoomImage] = useState(false);
+    const [lensStyle, setLensStyle] = useState({ left: 0, top: 0, display: "none" });
+
+    const imageContainerRef = useRef(null);
 
     const productImageListLoading = new Array(5).fill(null);
 
@@ -53,11 +56,31 @@ const ProductDetailsPage = () => {
 
     const handleZoomImage = useCallback((e) => {
         if (window.innerWidth < 1024) return;
+
+        const container = imageContainerRef.current;
+        if (!container) return;
+
+        const rect = container.getBoundingClientRect();
+        const lensWidth = 250;
+        const lensHeight = 180;
+
+        let x = e.clientX - rect.left - lensWidth / 2;
+        let y = e.clientY - rect.top - lensHeight / 2;
+
+        x = Math.max(0, Math.min(x, rect.width - lensWidth));
+        y = Math.max(0, Math.min(y, rect.height - lensHeight));
+
         setZoomImage(true);
-        const { left, top, width, height } = e.target.getBoundingClientRect();
+
+        setLensStyle({
+            left: x,
+            top: y,
+            display: "block"
+        });
+
         setZoomImageCoordinate({
-            x: (e.clientX - left) / width,
-            y: (e.clientY - top) / height
+            x: (x + lensWidth / 2) / rect.width,
+            y: (y + lensHeight / 2) / rect.height
         });
     }, []);
 
@@ -132,29 +155,44 @@ const ProductDetailsPage = () => {
                         )}
                     </div>
 
-                    <div className="order-1 md:order-2 w-full aspect-square md:max-w-[450px] bg-slate-200 relative rounded">
-                        <div className="relative w-full h-full">
+                    <div className="relative order-1 md:order-2 w-full aspect-square md:max-w-[450px] bg-slate-200 rounded">
+                        <div
+                            ref={imageContainerRef}
+                            className="relative w-full h-full overflow-hidden"
+                        >
                             <button
                                 onClick={handlePrevImage}
-                                className="absolute left-2 top-1/2 -translate-y-1/2 z-50
-                                            bg-white shadow-lg rounded-full p-3
-                                            text-[28px] hover:bg-gray-100 transition flex items-center justify-center cursor-pointer"
-                                >
+                                className="absolute left-2 top-1/2 -translate-y-1/2 z-50 bg-white shadow-lg rounded-full p-3 
+                                        text-[28px] hover:bg-gray-100 transition flex items-center justify-center cursor-pointer"
+                            >
                                 <FaAngleLeft />
                             </button>
 
                             <button
                                 onClick={handleNextImage}
-                                className="absolute right-2 top-1/2 -translate-y-1/2 z-50
-                                            bg-white shadow-lg rounded-full p-3
-                                            text-[28px] hover:bg-gray-100 transition flex items-center justify-center cursor-pointer"
-                                >
+                                className="absolute right-2 top-1/2 -translate-y-1/2 z-50 bg-white shadow-lg rounded-full p-3 
+                                        text-[28px] hover:bg-gray-100 transition flex items-center justify-center cursor-pointer"
+                            >
                                 <FaAngleRight />
                             </button>
 
+                            <div
+                                className="absolute border rounded border-gray-400 border-dashed bg-gray-300"
+                                style={{
+                                    width: "250px",
+                                    height: "180px",
+                                    left: lensStyle.left,
+                                    top: lensStyle.top,
+                                    display: lensStyle.display
+                                }}
+                            />
+
                             <img
                                 src={activeImage}
-                                onMouseLeave={() => setZoomImage(false)}
+                                onMouseLeave={() => {
+                                    setZoomImage(false);
+                                    setLensStyle((prev) => ({ ...prev, display: "none" }));
+                                }}
                                 onMouseMove={handleZoomImage}
                                 className="w-full h-full object-scale-down mix-blend-multiply rounded"
                                 alt=""
@@ -162,7 +200,8 @@ const ProductDetailsPage = () => {
                         </div>
 
                         {zoomImage && (
-                            <div className="absolute hidden lg:block w-[940px] h-[660px] bg-white -right-[950px] top-0 overflow-hidden shadow-md rounded z-50">
+                            <div className="absolute hidden lg:block w-[940px] h-[660px] bg-white -right-[950px] 
+                                        top-0 overflow-hidden shadow-md rounded z-50">
                                 <div
                                     className="w-full h-full bg-no-repeat"
                                     style={{
