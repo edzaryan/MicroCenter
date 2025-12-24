@@ -1,19 +1,18 @@
 import { Module, Logger } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 import { UsersModule } from './modules/users/users.module'; 
 import { ProductsModule } from './modules/products/products.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { CartsModule } from "./modules/carts/carts.module";
 import chalk from 'chalk';
+import { SeedModule } from './seeds/seed.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
+    ConfigModule.forRoot({ isGlobal: true }),
 
     MongooseModule.forRootAsync({
       inject: [ConfigService],
@@ -30,7 +29,9 @@ import chalk from 'chalk';
     UsersModule,
     ProductsModule,
     CartsModule,
-    AuthModule
+    AuthModule,
+
+    SeedModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -177,7 +177,7 @@ const ProductDetailsPage = () => {
                             </button>
 
                             <div
-                                className="absolute border rounded border-gray-400 border-dashed bg-gray-300"
+                                className="absolute border rounded border-gray-400 bg-gray-300"
                                 style={{
                                     width: "250px",
                                     height: "180px",
