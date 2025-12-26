@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { User } from '../modules/users/schemas/user.schema';
 import { Product } from '../modules/products/schemas/product.schema';
+import { User } from '../modules/users/schemas/user.schema';
 import { Cart } from '../modules/carts/schemas/cart.schema';
+import { InjectModel } from '@nestjs/mongoose';
 import { v2 as cloudinary } from 'cloudinary';
+import { Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class CleanService {
@@ -89,7 +89,5 @@ export class CleanService {
     console.log('Cleaning the database');
     await this.cleanDatabase();
     console.log('✅ Database data succesfully deleted!');
-
-    
   }
 }

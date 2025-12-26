@@ -1,8 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { HydratedDocument, CallbackWithoutResultAndOptionalError } from 'mongoose';
+import { randomBytes } from 'crypto';
+
+export type ProductDocument = HydratedDocument<Product>;
 
 @Schema({ timestamps: true })
-export class Product extends Document {
+export class Product {
 
   @Prop({ type: String, required: true }) 
   productName: string;
@@ -42,8 +45,20 @@ export class Product extends Document {
 
   @Prop({ type: Number })
   weight: number;
-
-
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
+
+ProductSchema.pre<ProductDocument>('save', function (next: CallbackWithoutResultAndOptionalError) {
+  if (!this.slug) {
+    const base = this.productName
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+
+    const id = randomBytes(4).toString('hex');
+    this.slug = `${base}-${id}`;
+  }
+
+  next();
+});

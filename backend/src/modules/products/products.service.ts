@@ -8,8 +8,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product } from './schemas/product.schema';
 import { ProductPermission } from './helpers/permission';
-import { randomBytes } from 'crypto';
 import { CreateProductDto } from './dto/create-product.dto';
+import { generateSlug } from '@/utils/slug.util';
 
 @Injectable()
 export class ProductsService {
@@ -18,21 +18,15 @@ export class ProductsService {
     private permission: ProductPermission,
   ) {}
 
-  generateShortId() {
-    return randomBytes(4).toString('hex');
-  }
+  async createProduct(dto: CreateProductDto) {
+    const slug = generateSlug(dto.productName);
 
-  slugify(text: string): string {
-    return text
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-  }
+    const product = await this.productModel.create({
+      ...dto,
+      slug
+    });
 
-  generateSlug(productName: string): string {
-    const base = this.slugify(productName);
-    const shortId = this.generateShortId();
-    return `${base}-${shortId}`;
+    return product;
   }
 
   async getAllProducts() {
@@ -206,16 +200,5 @@ export class ProductsService {
       error: false,
       data: savedProduct,
     };
-  }
-
-  async createProduct(dto: CreateProductDto) {
-    const slug = this.generateSlug(dto.productName);
-
-    const product = await this.productModel.create({
-      ...dto,
-      slug
-    });
-
-    return product;
   }
 }
