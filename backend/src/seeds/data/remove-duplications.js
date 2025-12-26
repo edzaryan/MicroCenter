@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const filePath = './fridges.json'; 
+const filePath = './headphone.json'; 
 
 const products = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
